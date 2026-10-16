@@ -1,0 +1,2 @@
+usd-core==26.8
+openai>=1.0,<3

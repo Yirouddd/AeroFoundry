@@ -1,0 +1,39 @@
+{
+  "status": "TASK_INTENT_PRODUCED",
+  "embodiment_status": "NEEDS_INFORMATION",
+  "task_status": "PRODUCED",
+  "artifact_refs": {
+    "EmbodimentResult": {
+      "path": "C:\\Users\\Dongy\\Documents\\Codex\\2026-09-29\\zhe-2\\outputs\\aerial_vla_phase1\\example_run\\embodiment\\EmbodimentResult.json",
+      "sha256": "bd629e83699d09a3a517f36237612b843c6733ebd43cb626392fee3a6af42f30"
+    },
+    "RobotProfile": {
+      "path": "C:\\Users\\Dongy\\Documents\\Codex\\2026-09-29\\zhe-2\\outputs\\aerial_vla_phase1\\example_run\\embodiment\\RobotProfile.json",
+      "sha256": "5b4fe1eb056dde4c21dc1e91b1b4dae32177e26c971c7988c9e880668e6e6585"
+    },
+    "ModelValidationReport": {
+      "path": "C:\\Users\\Dongy\\Documents\\Codex\\2026-09-29\\zhe-2\\outputs\\aerial_vla_phase1\\example_run\\embodiment\\ModelValidationReport.json",
+      "sha256": "4d54605eaff05adf84c1edf7a7246c70d4c93d2d5a2aaa3a604695ffbd927518"
+    },
+    "GenerationRequest": {
+      "path": "C:\\Users\\Dongy\\Documents\\Codex\\2026-09-29\\zhe-2\\outputs\\aerial_vla_phase1\\example_run\\task_generation\\GenerationRequest.json",
+      "sha256": "b8821b1358c74cf1392aa7431f4a60c33441a2ab94d933deb9fb07701f94f725"
+    },
+    "GenerationResult": {
+      "path": "C:\\Users\\Dongy\\Documents\\Codex\\2026-09-29\\zhe-2\\outputs\\aerial_vla_phase1\\example_run\\task_generation\\GenerationResult.json",
+      "sha256": "e919707034aeb0602ded8cf6706ef6134d8025d762f853c8215cd13c313437fa"
+    },
+    "TaskAudit": {
+      "path": "C:\\Users\\Dongy\\Documents\\Codex\\2026-09-29\\zhe-2\\outputs\\aerial_vla_phase1\\example_run\\task_generation\\audit.json",
+      "sha256": "ba06dae5d0980eeda8642f9e4d7559da34b4390b0a0dc6cb80ab28f5b3e0ec5c"
+    }
+  },
+  "missing": [
+    "/company_swan_gamma_v2/Physics/rotor_1_joint.limits",
+    "/company_swan_gamma_v2/Physics/rotor_2_joint.limits",
+    "/company_swan_gamma_v2/Physics/rotor_3_joint.limits",
+    "/company_swan_gamma_v2/Physics/rotor_4_joint.limits",
+    "quadrotor.max_thrust",
+    "end_effector.rated_payload"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "prompt_version": "task-semantics-1.0.0",
+  "model_requested": "offline-proposal",
+  "started_at_utc": "2026-10-02T18:09:37.424072+00:00",
+  "request_parameters": {
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "attempts": [
+    {
+      "raw_response": "{\n  \"template_id\": \"press\",\n  \"language_task\": \"Press a button.\",\n  \"target_object\": \"button\"\n}\n",
+      "response_metadata": {
+        "source": "offline-proposal-file"
+      },
+      "validation": "PASS"
+    }
+  ],
+  "input_artifact_hashes": {
+    "EmbodimentResult": "bd629e83699d09a3a517f36237612b843c6733ebd43cb626392fee3a6af42f30",
+    "RobotProfile": "5b4fe1eb056dde4c21dc1e91b1b4dae32177e26c971c7988c9e880668e6e6585",
+    "ModelValidationReport": "4d54605eaff05adf84c1edf7a7246c70d4c93d2d5a2aaa3a604695ffbd927518"
+  },
+  "generation_request_sha256": "95d7dfa909a3cf0daaabc0a35dfe3bda541893f7a7a26b030f2eeed8549049a6",
+  "template_catalog_sha256": "eefc857fde322f190cd28b8d6a1ee9f226e8df89f9750a3b468134e6e414df6e",
+  "request_messages": [
+    {
+      "role": "system",
+      "content": "You propose task semantics for a phase-one aerial manipulation intent. Return ONLY a JSON object with exactly template_id, language_task, target_object. Pick one enabled template. Copy every provided language_task and target_object byte-for-byte; fill only null fields. Do not claim physical feasibility, asset existence, thrust, payload or Gate A. Do not include numeric physics or success thresholds. Unknown robot facts remain unknown."
+    },
+    {
+      "role": "user",
+      "content": "{\"request\": {\"language_task\": null, \"target_object\": null, \"template_id\": null, \"scene_constraints\": null}, \"suggested_template_from_language\": null, \"enabled_templates\": [\"pick_place\", \"press\", \"push\", \"pull\", \"rotate\", \"insert\", \"wipe\"], \"confirmed_or_unknown_robot_facts\": {\"rotor_count\": 4, \"arm_joint_names\": [\"A\", \"B\", \"C\", \"D\", \"E\", \"F\"], \"body_frame\": \"/company_swan_gamma_v2/Geometry/base_link\", \"max_thrust_known\": false, \"rated_payload_known\": false, \"upstream_status\": \"NEEDS_INFORMATION\", \"missing\": [\"/company_swan_gamma_v2/Physics/rotor_1_joint.limits\", \"/company_swan_gamma_v2/Physics/rotor_2_joint.limits\", \"/company_swan_gamma_v2/Physics/rotor_3_joint.limits\", \"/company_swan_gamma_v2/Physics/rotor_4_joint.limits\", \"quadrotor.max_thrust\", \"end_effector.rated_payload\"]}}"
+    }
+  ],
+  "prompt_sha256": "55a5615ed085569baf067714e561125bb251e0ba5cad680da79f532efeb03b29",
+  "status": "PRODUCED",
+  "output_sha256": "dd1e495266bc28c06f3f3a58c6015effc9a620cd5f49adc5c773532823d595fd"
+}

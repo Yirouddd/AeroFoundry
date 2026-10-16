@@ -1,0 +1,32 @@
+{
+  "interface_version": "1.0",
+  "job_id": "swan-gamma-v2",
+  "request_id": "actual-model",
+  "status": "NEEDS_INFORMATION",
+  "artifact_refs": [
+    {
+      "artifact_type": "RobotProfile",
+      "schema_version": "1.0",
+      "path": "C:\\Users\\Dongy\\Documents\\Codex\\2026-09-29\\aerial-manipulation-vla-embodiment-understanding-agent-2\\outputs\\RobotProfile.json",
+      "sha256": "5b4fe1eb056dde4c21dc1e91b1b4dae32177e26c971c7988c9e880668e6e6585"
+    },
+    {
+      "artifact_type": "ModelValidationReport",
+      "schema_version": "1.0",
+      "path": "C:\\Users\\Dongy\\Documents\\Codex\\2026-09-29\\aerial-manipulation-vla-embodiment-understanding-agent-2\\outputs\\ModelValidationReport.json",
+      "sha256": "4d54605eaff05adf84c1edf7a7246c70d4c93d2d5a2aaa3a604695ffbd927518"
+    }
+  ],
+  "evidence_refs": [
+    "C:\\Users\\Dongy\\Documents\\Codex\\2026-09-29\\aerial-manipulation-vla-embodiment-understanding-agent-2\\outputs\\ModelValidationReport.json"
+  ],
+  "missing": [
+    "/company_swan_gamma_v2/Physics/rotor_1_joint.limits",
+    "/company_swan_gamma_v2/Physics/rotor_2_joint.limits",
+    "/company_swan_gamma_v2/Physics/rotor_3_joint.limits",
+    "/company_swan_gamma_v2/Physics/rotor_4_joint.limits",
+    "quadrotor.max_thrust",
+    "end_effector.rated_payload"
+  ],
+  "errors": []
+}

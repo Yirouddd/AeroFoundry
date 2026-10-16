@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aerial-vla-phase1-agents"
+version = "0.1.0"
+description = "Embodiment, task intent and scene generation for phase-one aerial manipulation"
+requires-python = ">=3.13"
+dependencies = ["usd-core==26.8", "openai>=1.0,<3"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["embodiment_agent*", "task_generation*", "asset_scene*", "aerial_vla_pipeline*"]
+
+[tool.setuptools.package-data]
+task_generation = ["templates.json"]

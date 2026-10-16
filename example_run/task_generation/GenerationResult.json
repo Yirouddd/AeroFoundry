@@ -1,0 +1,261 @@
+{
+  "status": "PRODUCED",
+  "completed_generation_intent": {
+    "schema_version": "phase1.1",
+    "intent_id": "intent-task-9efcb66ea4d29bc5",
+    "request_id": "actual-model",
+    "task_id": "task-9efcb66ea4d29bc5",
+    "target_object_spec_ref": "#/target_object_spec",
+    "scene_constraint_spec_ref": "#/scene_constraint_spec",
+    "task_spec_ref": "#/task_spec",
+    "success_spec_ref": "#/success_spec",
+    "input_hash": "95d7dfa909a3cf0daaabc0a35dfe3bda541893f7a7a26b030f2eeed8549049a6",
+    "field_sources": {
+      "/language_task": {
+        "source": "AGENT_GENERATED",
+        "source_ref": "model:task-semantics-1.0.0"
+      },
+      "/target_object": {
+        "source": "AGENT_GENERATED",
+        "source_ref": "model:task-semantics-1.0.0"
+      },
+      "/scene_constraints": {
+        "source": "DEFAULT_CONFIG",
+        "source_ref": "phase1.1-tasks-1.0.0"
+      },
+      "/template_id": {
+        "source": "AGENT_GENERATED",
+        "source_ref": "model:task-semantics-1.0.0"
+      }
+    },
+    "locked_fields": []
+  },
+  "task_spec": {
+    "schema_version": "phase1.1",
+    "task_id": "task-9efcb66ea4d29bc5",
+    "template_id": "press",
+    "template_version": "1.0.0",
+    "original_language": null,
+    "normalized_language": "Press a button.",
+    "roles": {
+      "target": "pressable_control",
+      "support": "fixed_support"
+    },
+    "initial_predicates": [
+      {
+        "id": "initial-1",
+        "type": "supported_by",
+        "args": [
+          "target",
+          "support"
+        ],
+        "params": {},
+        "frame": "support"
+      }
+    ],
+    "goal_predicates": [
+      {
+        "id": "goal-1",
+        "type": "pressed",
+        "args": [
+          "target"
+        ],
+        "params": {
+          "travel_m": 0.005
+        },
+        "frame": "target"
+      }
+    ],
+    "process_constraints": [],
+    "required_capabilities": [
+      "press_contact"
+    ],
+    "required_skills": [
+      "approach",
+      "align",
+      "press",
+      "release",
+      "retreat"
+    ],
+    "time_limit_s": null,
+    "sampling_bounds": {
+      "task_count": 1
+    },
+    "field_sources": {
+      "/original_language": {
+        "source": "AGENT_GENERATED",
+        "source_ref": "model:task-semantics-1.0.0"
+      },
+      "/normalized_language": {
+        "source": "AGENT_GENERATED",
+        "source_ref": "model:task-semantics-1.0.0"
+      },
+      "/roles": {
+        "source": "DEFAULT_CONFIG",
+        "source_ref": "templates.json#press@1.0.0"
+      },
+      "/template_id": {
+        "source": "DEFAULT_CONFIG",
+        "source_ref": "templates.json#press@1.0.0"
+      },
+      "/template_version": {
+        "source": "DEFAULT_CONFIG",
+        "source_ref": "templates.json#press@1.0.0"
+      },
+      "/initial_predicates": {
+        "source": "DEFAULT_CONFIG",
+        "source_ref": "templates.json#press@1.0.0"
+      },
+      "/goal_predicates": {
+        "source": "DEFAULT_CONFIG",
+        "source_ref": "templates.json#press@1.0.0"
+      },
+      "/process_constraints": {
+        "source": "DEFAULT_CONFIG",
+        "source_ref": "templates.json#press@1.0.0"
+      },
+      "/required_capabilities": {
+        "source": "DEFAULT_CONFIG",
+        "source_ref": "templates.json#press@1.0.0"
+      },
+      "/required_skills": {
+        "source": "DEFAULT_CONFIG",
+        "source_ref": "templates.json#press@1.0.0"
+      },
+      "/time_limit_s": {
+        "source": "DEFAULT_CONFIG",
+        "source_ref": "templates.json#press@1.0.0"
+      },
+      "/sampling_bounds/task_count": {
+        "source": "USER_PROVIDED",
+        "source_ref": "/task_count"
+      },
+      "/goal_predicates/0/params": {
+        "source": "DEFAULT_CONFIG",
+        "source_ref": "templates.json#press@1.0.0/goals/0"
+      }
+    },
+    "locked_fields": []
+  },
+  "success_spec": {
+    "schema_version": "phase1.1",
+    "task_id": "task-9efcb66ea4d29bc5",
+    "criteria": [
+      {
+        "predicate_id": "goal-1",
+        "metric": "travel_along_annotated_axis_m",
+        "comparator": ">=",
+        "threshold": 0.005,
+        "unit": "m",
+        "frame": "target",
+        "hold_s": 0,
+        "evidence": "control_joint_state",
+        "missing_policy": "UNKNOWN",
+        "threshold_source": {
+          "source": "DEFAULT_CONFIG",
+          "source_ref": "templates.json#press@1.0.0/goals/0"
+        }
+      }
+    ]
+  },
+  "target_object_spec": {
+    "schema_version": "phase1.1",
+    "task_id": "task-9efcb66ea4d29bc5",
+    "asset_class": "button",
+    "semantic_attributes": {},
+    "hard_attributes": {},
+    "field_sources": {
+      "/asset_class": {
+        "source": "AGENT_GENERATED",
+        "source_ref": "model:task-semantics-1.0.0"
+      },
+      "/semantic_attributes": {
+        "source": "DEFAULT_CONFIG",
+        "source_ref": "phase1.1-tasks-1.0.0"
+      },
+      "/hard_attributes": {
+        "source": "DEFAULT_CONFIG",
+        "source_ref": "phase1.1-tasks-1.0.0"
+      }
+    }
+  },
+  "scene_constraint_spec": {
+    "schema_version": "phase1.1",
+    "task_id": "task-9efcb66ea4d29bc5",
+    "raw_text": null,
+    "target_side": null,
+    "workspace_box_m": null,
+    "forbidden_regions": [],
+    "support_relation": null,
+    "asset_ids": [],
+    "field_sources": {
+      "/raw_text": {
+        "source": "DEFAULT_CONFIG",
+        "source_ref": "phase1.1-tasks-1.0.0"
+      },
+      "/target_side": {
+        "source": "DEFAULT_CONFIG",
+        "source_ref": "phase1.1-tasks-1.0.0"
+      },
+      "/workspace_box_m": {
+        "source": "DEFAULT_CONFIG",
+        "source_ref": "phase1.1-tasks-1.0.0"
+      },
+      "/forbidden_regions": {
+        "source": "DEFAULT_CONFIG",
+        "source_ref": "phase1.1-tasks-1.0.0"
+      },
+      "/support_relation": {
+        "source": "DEFAULT_CONFIG",
+        "source_ref": "phase1.1-tasks-1.0.0"
+      },
+      "/asset_ids": {
+        "source": "DEFAULT_CONFIG",
+        "source_ref": "phase1.1-tasks-1.0.0"
+      }
+    }
+  },
+  "task_generation_report": {
+    "schema_version": "phase1.1",
+    "report_id": "report-task-9efcb66ea4d29bc5",
+    "request_id": "actual-model",
+    "status": "PRODUCED",
+    "template_id": "press",
+    "generated_fields": [
+      "language_task",
+      "target_object"
+    ],
+    "normalized_fields": [
+      "task_spec",
+      "success_spec"
+    ],
+    "conflicts": [],
+    "evidence_refs": [
+      {
+        "result": "C:\\Users\\Dongy\\Documents\\Codex\\2026-09-29\\zhe-2\\outputs\\aerial_vla_phase1\\example_run\\embodiment\\EmbodimentResult.json",
+        "profile": "C:\\Users\\Dongy\\Documents\\Codex\\2026-09-29\\zhe-2\\outputs\\aerial_vla_phase1\\example_run\\embodiment\\RobotProfile.json",
+        "validation_report": "C:\\Users\\Dongy\\Documents\\Codex\\2026-09-29\\zhe-2\\outputs\\aerial_vla_phase1\\example_run\\embodiment\\ModelValidationReport.json"
+      }
+    ],
+    "upstream_status": "NEEDS_INFORMATION",
+    "upstream_missing": [
+      "/company_swan_gamma_v2/Physics/rotor_1_joint.limits",
+      "/company_swan_gamma_v2/Physics/rotor_2_joint.limits",
+      "/company_swan_gamma_v2/Physics/rotor_3_joint.limits",
+      "/company_swan_gamma_v2/Physics/rotor_4_joint.limits",
+      "quadrotor.max_thrust",
+      "end_effector.rated_payload"
+    ],
+    "input_artifact_hashes": {
+      "EmbodimentResult": "bd629e83699d09a3a517f36237612b843c6733ebd43cb626392fee3a6af42f30",
+      "RobotProfile": "5b4fe1eb056dde4c21dc1e91b1b4dae32177e26c971c7988c9e880668e6e6585",
+      "ModelValidationReport": "4d54605eaff05adf84c1edf7a7246c70d4c93d2d5a2aaa3a604695ffbd927518"
+    },
+    "unverified_assumptions": [
+      "Asset availability, task feasibility and Gate A remain unverified",
+      "Template thresholds require downstream asset compatibility"
+    ],
+    "template_catalog_version": "phase1.1-tasks-1.0.0",
+    "template_catalog_sha256": "eefc857fde322f190cd28b8d6a1ee9f226e8df89f9750a3b468134e6e414df6e"
+  }
+}

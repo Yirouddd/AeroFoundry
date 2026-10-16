@@ -1,0 +1,16 @@
+{
+  "schema_version": "phase1.1",
+  "request_id": "actual-model",
+  "robot_bundle_ref": "C:\\Users\\Dongy\\Desktop\\container_scene\\container_scene\\models\\robots\\swan_gamma_v2",
+  "embodiment_refs": {
+    "result": "C:\\Users\\Dongy\\Documents\\Codex\\2026-09-29\\zhe-2\\outputs\\aerial_vla_phase1\\example_run\\embodiment\\EmbodimentResult.json",
+    "profile": "C:\\Users\\Dongy\\Documents\\Codex\\2026-09-29\\zhe-2\\outputs\\aerial_vla_phase1\\example_run\\embodiment\\RobotProfile.json",
+    "validation_report": "C:\\Users\\Dongy\\Documents\\Codex\\2026-09-29\\zhe-2\\outputs\\aerial_vla_phase1\\example_run\\embodiment\\ModelValidationReport.json"
+  },
+  "language_task": null,
+  "target_object": null,
+  "scene_constraints": null,
+  "template_id": null,
+  "task_parameters": {},
+  "task_count": 1
+}

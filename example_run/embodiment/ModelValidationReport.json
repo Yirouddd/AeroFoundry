@@ -1,0 +1,197 @@
+{
+  "schema_version": "1.0",
+  "job_id": "swan-gamma-v2",
+  "request_id": "actual-model",
+  "stage_opened": true,
+  "variant_checks": [
+    {
+      "name": "mujoco",
+      "readable": true,
+      "composition_errors": []
+    },
+    {
+      "name": "none",
+      "readable": true,
+      "composition_errors": []
+    },
+    {
+      "name": "physics",
+      "readable": true,
+      "composition_errors": []
+    },
+    {
+      "name": "physx",
+      "readable": true,
+      "composition_errors": []
+    }
+  ],
+  "confirmed": [
+    {
+      "field": "stage",
+      "detail": "USD stage and default prim composed",
+      "source": null
+    },
+    {
+      "field": "/company_swan_gamma_v2/Geometry/base_link.physics:mass",
+      "detail": "Authored mass",
+      "source": {
+        "file": "C:\\Users\\Dongy\\Desktop\\container_scene\\container_scene\\models\\robots\\swan_gamma_v2\\usd\\company_swan_gamma_v2\\payloads\\Physics\\physics.usda",
+        "field_path": "/company_swan_gamma_v2/Geometry/base_link.physics:mass"
+      }
+    },
+    {
+      "field": "/company_swan_gamma_v2/Geometry/base_link/rotor_1.physics:mass",
+      "detail": "Authored mass",
+      "source": {
+        "file": "C:\\Users\\Dongy\\Desktop\\container_scene\\container_scene\\models\\robots\\swan_gamma_v2\\usd\\company_swan_gamma_v2\\payloads\\Physics\\physics.usda",
+        "field_path": "/company_swan_gamma_v2/Geometry/base_link/rotor_1.physics:mass"
+      }
+    },
+    {
+      "field": "/company_swan_gamma_v2/Geometry/base_link/rotor_2.physics:mass",
+      "detail": "Authored mass",
+      "source": {
+        "file": "C:\\Users\\Dongy\\Desktop\\container_scene\\container_scene\\models\\robots\\swan_gamma_v2\\usd\\company_swan_gamma_v2\\payloads\\Physics\\physics.usda",
+        "field_path": "/company_swan_gamma_v2/Geometry/base_link/rotor_2.physics:mass"
+      }
+    },
+    {
+      "field": "/company_swan_gamma_v2/Geometry/base_link/rotor_3.physics:mass",
+      "detail": "Authored mass",
+      "source": {
+        "file": "C:\\Users\\Dongy\\Desktop\\container_scene\\container_scene\\models\\robots\\swan_gamma_v2\\usd\\company_swan_gamma_v2\\payloads\\Physics\\physics.usda",
+        "field_path": "/company_swan_gamma_v2/Geometry/base_link/rotor_3.physics:mass"
+      }
+    },
+    {
+      "field": "/company_swan_gamma_v2/Geometry/base_link/rotor_4.physics:mass",
+      "detail": "Authored mass",
+      "source": {
+        "file": "C:\\Users\\Dongy\\Desktop\\container_scene\\container_scene\\models\\robots\\swan_gamma_v2\\usd\\company_swan_gamma_v2\\payloads\\Physics\\physics.usda",
+        "field_path": "/company_swan_gamma_v2/Geometry/base_link/rotor_4.physics:mass"
+      }
+    },
+    {
+      "field": "/company_swan_gamma_v2/Geometry/base_link/gamma_arm_base_link.physics:mass",
+      "detail": "Authored mass",
+      "source": {
+        "file": "C:\\Users\\Dongy\\Desktop\\container_scene\\container_scene\\models\\robots\\swan_gamma_v2\\usd\\company_swan_gamma_v2\\payloads\\Physics\\physics.usda",
+        "field_path": "/company_swan_gamma_v2/Geometry/base_link/gamma_arm_base_link.physics:mass"
+      }
+    },
+    {
+      "field": "/company_swan_gamma_v2/Geometry/base_link/gamma_arm_base_link/A_Link.physics:mass",
+      "detail": "Authored mass",
+      "source": {
+        "file": "C:\\Users\\Dongy\\Desktop\\container_scene\\container_scene\\models\\robots\\swan_gamma_v2\\usd\\company_swan_gamma_v2\\payloads\\Physics\\physics.usda",
+        "field_path": "/company_swan_gamma_v2/Geometry/base_link/gamma_arm_base_link/A_Link.physics:mass"
+      }
+    },
+    {
+      "field": "/company_swan_gamma_v2/Geometry/base_link/gamma_arm_base_link/A_Link/B_Link.physics:mass",
+      "detail": "Authored mass",
+      "source": {
+        "file": "C:\\Users\\Dongy\\Desktop\\container_scene\\container_scene\\models\\robots\\swan_gamma_v2\\usd\\company_swan_gamma_v2\\payloads\\Physics\\physics.usda",
+        "field_path": "/company_swan_gamma_v2/Geometry/base_link/gamma_arm_base_link/A_Link/B_Link.physics:mass"
+      }
+    },
+    {
+      "field": "/company_swan_gamma_v2/Geometry/base_link/gamma_arm_base_link/A_Link/B_Link/C_Link.physics:mass",
+      "detail": "Authored mass",
+      "source": {
+        "file": "C:\\Users\\Dongy\\Desktop\\container_scene\\container_scene\\models\\robots\\swan_gamma_v2\\usd\\company_swan_gamma_v2\\payloads\\Physics\\physics.usda",
+        "field_path": "/company_swan_gamma_v2/Geometry/base_link/gamma_arm_base_link/A_Link/B_Link/C_Link.physics:mass"
+      }
+    },
+    {
+      "field": "/company_swan_gamma_v2/Geometry/base_link/gamma_arm_base_link/A_Link/B_Link/C_Link/D_Link.physics:mass",
+      "detail": "Authored mass",
+      "source": {
+        "file": "C:\\Users\\Dongy\\Desktop\\container_scene\\container_scene\\models\\robots\\swan_gamma_v2\\usd\\company_swan_gamma_v2\\payloads\\Physics\\physics.usda",
+        "field_path": "/company_swan_gamma_v2/Geometry/base_link/gamma_arm_base_link/A_Link/B_Link/C_Link/D_Link.physics:mass"
+      }
+    },
+    {
+      "field": "/company_swan_gamma_v2/Geometry/base_link/gamma_arm_base_link/A_Link/B_Link/C_Link/D_Link/E_Link.physics:mass",
+      "detail": "Authored mass",
+      "source": {
+        "file": "C:\\Users\\Dongy\\Desktop\\container_scene\\container_scene\\models\\robots\\swan_gamma_v2\\usd\\company_swan_gamma_v2\\payloads\\Physics\\physics.usda",
+        "field_path": "/company_swan_gamma_v2/Geometry/base_link/gamma_arm_base_link/A_Link/B_Link/C_Link/D_Link/E_Link.physics:mass"
+      }
+    },
+    {
+      "field": "/company_swan_gamma_v2/Geometry/base_link/gamma_arm_base_link/A_Link/B_Link/C_Link/D_Link/E_Link/F_Link.physics:mass",
+      "detail": "Authored mass",
+      "source": {
+        "file": "C:\\Users\\Dongy\\Desktop\\container_scene\\container_scene\\models\\robots\\swan_gamma_v2\\usd\\company_swan_gamma_v2\\payloads\\Physics\\physics.usda",
+        "field_path": "/company_swan_gamma_v2/Geometry/base_link/gamma_arm_base_link/A_Link/B_Link/C_Link/D_Link/E_Link/F_Link.physics:mass"
+      }
+    },
+    {
+      "field": "/company_swan_gamma_v2/Geometry/base_link/gamma_arm_base_link/A_Link/B_Link/C_Link/D_Link/E_Link/F_Link/gripper4_base_link.physics:mass",
+      "detail": "Authored mass",
+      "source": {
+        "file": "C:\\Users\\Dongy\\Desktop\\container_scene\\container_scene\\models\\robots\\swan_gamma_v2\\usd\\company_swan_gamma_v2\\payloads\\Physics\\physics.usda",
+        "field_path": "/company_swan_gamma_v2/Geometry/base_link/gamma_arm_base_link/A_Link/B_Link/C_Link/D_Link/E_Link/F_Link/gripper4_base_link.physics:mass"
+      }
+    },
+    {
+      "field": "/company_swan_gamma_v2/Geometry/base_link/gamma_arm_base_link/A_Link/B_Link/C_Link/D_Link/E_Link/F_Link/gripper4_base_link/gripper4_jaw_left.physics:mass",
+      "detail": "Authored mass",
+      "source": {
+        "file": "C:\\Users\\Dongy\\Desktop\\container_scene\\container_scene\\models\\robots\\swan_gamma_v2\\usd\\company_swan_gamma_v2\\payloads\\Physics\\physics.usda",
+        "field_path": "/company_swan_gamma_v2/Geometry/base_link/gamma_arm_base_link/A_Link/B_Link/C_Link/D_Link/E_Link/F_Link/gripper4_base_link/gripper4_jaw_left.physics:mass"
+      }
+    },
+    {
+      "field": "/company_swan_gamma_v2/Geometry/base_link/gamma_arm_base_link/A_Link/B_Link/C_Link/D_Link/E_Link/F_Link/gripper4_base_link/gripper4_jaw_right.physics:mass",
+      "detail": "Authored mass",
+      "source": {
+        "file": "C:\\Users\\Dongy\\Desktop\\container_scene\\container_scene\\models\\robots\\swan_gamma_v2\\usd\\company_swan_gamma_v2\\payloads\\Physics\\physics.usda",
+        "field_path": "/company_swan_gamma_v2/Geometry/base_link/gamma_arm_base_link/A_Link/B_Link/C_Link/D_Link/E_Link/F_Link/gripper4_base_link/gripper4_jaw_right.physics:mass"
+      }
+    }
+  ],
+  "invalid": [],
+  "missing_or_ambiguous": [
+    {
+      "field": "/company_swan_gamma_v2/Physics/rotor_1_joint.limits",
+      "detail": "One or both joint limits are unauthored",
+      "source": null
+    },
+    {
+      "field": "/company_swan_gamma_v2/Physics/rotor_2_joint.limits",
+      "detail": "One or both joint limits are unauthored",
+      "source": null
+    },
+    {
+      "field": "/company_swan_gamma_v2/Physics/rotor_3_joint.limits",
+      "detail": "One or both joint limits are unauthored",
+      "source": null
+    },
+    {
+      "field": "/company_swan_gamma_v2/Physics/rotor_4_joint.limits",
+      "detail": "One or both joint limits are unauthored",
+      "source": null
+    },
+    {
+      "field": "quadrotor.max_thrust",
+      "detail": "No rated thrust value identified",
+      "source": null
+    },
+    {
+      "field": "end_effector.rated_payload",
+      "detail": "No rated gripper payload identified",
+      "source": null
+    }
+  ],
+  "optional_unset": [
+    {
+      "field": "end_effector.tcp",
+      "detail": "No fixed TCP is specified in this USD; it is not required for embodiment extraction",
+      "source": null
+    }
+  ],
+  "errors": [],
+  "selected_variant": "physx"
+}
