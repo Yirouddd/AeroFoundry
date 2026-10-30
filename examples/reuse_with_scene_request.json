@@ -1,9 +1,9 @@
 {
   "job_id": "swan-gamma-v2",
   "request_id": "actual-model",
-  "model_directory": "C:\\Users\\Dongy\\Desktop\\container_scene\\container_scene\\models\\robots\\swan_gamma_v2",
-  "embodiment_directory": "C:\\Users\\Dongy\\Documents\\Codex\\2026-09-29\\aerial-manipulation-vla-embodiment-understanding-agent-2\\outputs",
+  "model_directory": "${AERIAL_VLA_ROBOT_MODEL_DIR}",
+  "embodiment_directory": "${AERIAL_VLA_EMBODIMENT_DIR}",
   "output_directory": "runs/scene_demo",
-  "isaac_root": "D:\\IsaacSim",
+  "isaac_python": "${AERIAL_VLA_ISAAC_PYTHON}",
   "cached_asset_archive": "assets/cache/kenney_factory-kit_3.0.zip"
 }

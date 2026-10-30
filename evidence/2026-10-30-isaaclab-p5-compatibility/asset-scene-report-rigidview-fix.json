@@ -1,0 +1,398 @@
+{
+  "kind": "aerofoundry_asset_scene_isaaclab_backend_smoke",
+  "status": "PASSED",
+  "task_id": "task-9efcb66ea4d29bc5",
+  "robot_asset": "/home/windshape/Documents/ChatGPT/AeroFoundry-linux/runs/isaaclab-p5-smoke-2026-10-31-final/p5_m500_import_smoke.usd",
+  "result": {
+    "schema_version": "asset-scene-0.1",
+    "task_id": "task-9efcb66ea4d29bc5",
+    "status": "PASSED",
+    "agent_version": "0.1.0",
+    "template_id": "press",
+    "inputs": {
+      "task_result": {
+        "path": "/home/windshape/Documents/ChatGPT/AeroFoundry-linux/example_run/task_generation/GenerationResult.json",
+        "sha256": "7a9d330903db42abebb2dfe1ec1201408a54a7a61b2e5428134c13491817a311"
+      },
+      "robot_profile": {
+        "path": "/home/windshape/Documents/ChatGPT/AeroFoundry-linux/runs/aerofoundry-scene-smoke-2026-10-31-rigidview-fix/smoke_inputs/RobotProfile.json",
+        "sha256": "535425b564b8ca30b13ad663abaf416e23433dabd8ed967182601e5f123edc90"
+      }
+    },
+    "object_spec": {
+      "task_id": "task-9efcb66ea4d29bc5",
+      "asset_class": "button",
+      "semantic_attributes": {},
+      "hard_attributes": {}
+    },
+    "asset_match_report": {
+      "task_id": "task-9efcb66ea4d29bc5",
+      "candidates": [
+        {
+          "page": "https://kenney.nl/assets/factory-kit",
+          "download_url": "https://kenney.nl/media/pages/assets/factory-kit/edaac9d4f6-1777639602/kenney_factory-kit_3.0.zip",
+          "provider": "Kenney",
+          "license": "CC0-1.0",
+          "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "version": "3.0",
+          "retrieved_at": "2026-10-02T18:48:54.290031+00:00",
+          "sha256": "7e31fb2308e90304672bd15cd18fa9d9f02c03731a8cbc57a8e3e1c181dfb0a7",
+          "bytes": 4511890,
+          "download_method": "verified_cached_archive",
+          "id": "kenney-factory-kit-3.0-button-floor-round",
+          "asset_url": "https://kenney.nl/media/pages/assets/factory-kit/edaac9d4f6-1777639602/kenney_factory-kit_3.0.zip",
+          "format": "OBJ/GLB",
+          "original_file": "/home/windshape/Documents/ChatGPT/AeroFoundry-linux/runs/aerofoundry-scene-smoke-2026-10-31-rigidview-fix/asset_scene/scenes/task-9efcb66ea4d29bc5/assets/button-floor-round.obj",
+          "original_sha256": "cd23c57b84b8d45da4df458a2b8e391f64ec1022f3fe51b02dbd3a1328a360b3",
+          "matched_attributes": [
+            "button",
+            "round",
+            "floor mounted",
+            "press surface appearance"
+          ],
+          "unmatched_attributes": [
+            "authored prismatic travel",
+            "spring return",
+            "measured force"
+          ],
+          "selection_reason": "CC0 source, geometric button and explicit free download; mechanism can be built separately"
+        },
+        {
+          "id": "kenney-factory-kit-3.0-button-floor-square",
+          "page": "https://kenney.nl/assets/factory-kit",
+          "download_url": "https://kenney.nl/media/pages/assets/factory-kit/edaac9d4f6-1777639602/kenney_factory-kit_3.0.zip",
+          "provider": "Kenney",
+          "license": "CC0-1.0",
+          "format": "OBJ/GLB",
+          "version": "3.0",
+          "matched_attributes": [
+            "button",
+            "floor mounted"
+          ],
+          "unmatched_attributes": [
+            "authored prismatic travel",
+            "spring return",
+            "measured force"
+          ],
+          "selection_reason": "Valid candidate; round button chosen for symmetric contact surface"
+        }
+      ],
+      "selected": "kenney-factory-kit-3.0-button-floor-round"
+    },
+    "target_object_instance": {
+      "task_id": "task-9efcb66ea4d29bc5",
+      "path": "/World/Target",
+      "role": "target",
+      "source_visual": "/World/Target/SourceVisual",
+      "pressable_part": "/World/Target/PressCap",
+      "joint": "/World/Target/PressJoint",
+      "source_mesh": {
+        "vertices": 40,
+        "triangles": 156,
+        "local_bounds_m": [
+          [
+            -0.25,
+            0.25
+          ],
+          [
+            -0.25,
+            0.25
+          ],
+          [
+            0.0,
+            0.15000000596046448
+          ]
+        ]
+      }
+    },
+    "scene_spec": {
+      "task_id": "task-9efcb66ea4d29bc5",
+      "roles": {
+        "robot": "/World/Robot",
+        "target": "/World/Target",
+        "fixed_support": "/World/FixedSupport",
+        "ground": "/World/Ground"
+      },
+      "initial_positions_m": {
+        "robot": [
+          -1.5,
+          0,
+          1.0
+        ],
+        "target": [
+          1.5,
+          0,
+          0.5
+        ]
+      },
+      "constraints": {
+        "schema_version": "phase1.1",
+        "task_id": "task-9efcb66ea4d29bc5",
+        "raw_text": null,
+        "target_side": null,
+        "workspace_box_m": null,
+        "forbidden_regions": [],
+        "support_relation": null,
+        "asset_ids": [],
+        "field_sources": {
+          "/raw_text": {
+            "source": "DEFAULT_CONFIG",
+            "source_ref": "phase1.1-tasks-1.0.0"
+          },
+          "/target_side": {
+            "source": "DEFAULT_CONFIG",
+            "source_ref": "phase1.1-tasks-1.0.0"
+          },
+          "/workspace_box_m": {
+            "source": "DEFAULT_CONFIG",
+            "source_ref": "phase1.1-tasks-1.0.0"
+          },
+          "/forbidden_regions": {
+            "source": "DEFAULT_CONFIG",
+            "source_ref": "phase1.1-tasks-1.0.0"
+          },
+          "/support_relation": {
+            "source": "DEFAULT_CONFIG",
+            "source_ref": "phase1.1-tasks-1.0.0"
+          },
+          "/asset_ids": {
+            "source": "DEFAULT_CONFIG",
+            "source_ref": "phase1.1-tasks-1.0.0"
+          }
+        }
+      }
+    },
+    "realized_scene": {
+      "task_id": "task-9efcb66ea4d29bc5",
+      "scene_usd": "/home/windshape/Documents/ChatGPT/AeroFoundry-linux/runs/aerofoundry-scene-smoke-2026-10-31-rigidview-fix/asset_scene/scenes/task-9efcb66ea4d29bc5/scene.usd",
+      "reopened_in_isaac_sim": true,
+      "physics_assumptions": {
+        "cap_mass_kg": 0.05,
+        "cap_radius_m": 0.12,
+        "cap_height_m": 0.035,
+        "joint_travel_m": 0.02,
+        "spring_stiffness_N_per_m": 200.0,
+        "damping_Ns_per_m": 12.0,
+        "static_friction": 0.5,
+        "dynamic_friction": 0.4,
+        "friction_basis": "engineering configuration; not asset metadata"
+      },
+      "facts": {
+        "source_obj": "/home/windshape/Documents/ChatGPT/AeroFoundry-linux/runs/aerofoundry-scene-smoke-2026-10-31-rigidview-fix/asset_scene/scenes/task-9efcb66ea4d29bc5/assets/button-floor-round.obj",
+        "source_mesh_bounds_m": [
+          [
+            -0.25,
+            0.25
+          ],
+          [
+            -0.25,
+            0.25
+          ],
+          [
+            0.0,
+            0.15000000596046448
+          ]
+        ]
+      }
+    },
+    "initialization_log": [
+      {
+        "step": "cached_catalog",
+        "url": "https://kenney.nl/assets/factory-kit",
+        "time": "2026-10-02T18:48:54.290031+00:00"
+      },
+      {
+        "step": "isaac_sim_build_and_reopen",
+        "evidence": "/home/windshape/Documents/ChatGPT/AeroFoundry-linux/runs/aerofoundry-scene-smoke-2026-10-31-rigidview-fix/asset_scene/scenes/task-9efcb66ea4d29bc5/isaac_evidence.json",
+        "required_checks_passed": true
+      }
+    ],
+    "asset_versions": [
+      {
+        "id": "kenney-factory-kit-3.0-button-floor-round",
+        "source_version": "3.0",
+        "sha256": "cd23c57b84b8d45da4df458a2b8e391f64ec1022f3fe51b02dbd3a1328a360b3"
+      }
+    ],
+    "scene_version": {
+      "agent": "0.1.0",
+      "isaac_sim": "5.1.0.0",
+      "isaac_lab": "0.48.0",
+      "scene_sha256": "3b9a753691290a8a59c2585c8087816e5409954863a081a3a39d2d978acf1fe0"
+    },
+    "dependencies": [
+      {
+        "path": "isaac_stderr.log",
+        "sha256": "f57bf5ca108487b57c954572f505815d14e4d4e44b441aff7be607e9cb3a6461"
+      },
+      {
+        "path": "scene.usd",
+        "sha256": "3b9a753691290a8a59c2585c8087816e5409954863a081a3a39d2d978acf1fe0"
+      },
+      {
+        "path": "isaac_evidence.json",
+        "sha256": "6b3aa1db4b164a280b88cfa3945b8687cf49373fae72498c2d7ba31662192424"
+      },
+      {
+        "path": "isaac_stdout.log",
+        "sha256": "e46685b1662188edfefe8140a89670dc10bdd7a015e74ffe9c034421818dff7c"
+      },
+      {
+        "path": "assets/button-floor-round.obj",
+        "sha256": "cd23c57b84b8d45da4df458a2b8e391f64ec1022f3fe51b02dbd3a1328a360b3"
+      },
+      {
+        "path": "assets/kenney_factory-kit_3.0.zip",
+        "sha256": "7e31fb2308e90304672bd15cd18fa9d9f02c03731a8cbc57a8e3e1c181dfb0a7"
+      },
+      {
+        "path": "assets/button-floor-round.mtl",
+        "sha256": "45a6736aa344a0c7e286b9c43c6a48f25b6a2f78d8c5949e430c3b4a93b4e060"
+      },
+      {
+        "path": "assets/button-floor-round.glb",
+        "sha256": "154e93fa4613e5fcec4c0c4804ff3d0e4422b638385e1b9e08a6c39b9cd5fd5f"
+      },
+      {
+        "path": "assets/License.txt",
+        "sha256": "61e86565dd297e143ad631594980eda0a17fc81a4cd7c6d71acf2f5e0cad30b6"
+      },
+      {
+        "path": "dependencies/robot_asset/p5_m500_import_smoke.usd",
+        "sha256": "35a9a17806622ba513724b2a2992858ad9a078618609f86f7d88aaef2e2dee8c"
+      },
+      {
+        "path": "dependencies/robot_asset/config.yaml",
+        "sha256": "e4d0d94ab0a93bfa92c02c8a82db303e5d72aeba9513c598d4ef74b622a16d64"
+      },
+      {
+        "path": "dependencies/robot_asset/.asset_hash",
+        "sha256": "dd60fda9e6d7a72c84e16090813b9c95370d3d570b36ae91a8a2bc9a733c3d53"
+      },
+      {
+        "path": "dependencies/robot_asset/configuration/p5_m500_import_smoke_base.usd",
+        "sha256": "71bce82a5ae87fa93072d7e5303cc37f63683d0c373a8ecdc6a6c3782d5d1934"
+      },
+      {
+        "path": "dependencies/robot_asset/configuration/p5_m500_import_smoke_sensor.usd",
+        "sha256": "ce2e74688acda89544e50ceef4054be1ba271485912cee194ad72927e30a64cd"
+      },
+      {
+        "path": "dependencies/robot_asset/configuration/p5_m500_import_smoke_robot.usd",
+        "sha256": "5711e399e2505c7e25499e5507ccd19843dcee22894819d003025f78b2df8c48"
+      },
+      {
+        "path": "dependencies/robot_asset/configuration/p5_m500_import_smoke_physics.usd",
+        "sha256": "54a1bbb2a945b95cd30533b1fc5e5416f74f29868babc314f301494e8154df0a"
+      }
+    ],
+    "verification": {
+      "required_checks_passed": true,
+      "structural_checks_passed": true,
+      "physics_mechanics_checks_passed": true,
+      "checks": {
+        "open_stage": true,
+        "robot_reference_loaded": true,
+        "source_visual_loaded": true,
+        "support_collision": true,
+        "cap_collision": true,
+        "joint_exists": true,
+        "stage_units_m": true,
+        "source_geometry_reasonable": true,
+        "reset_succeeded": true,
+        "physics_steps_advanced": true,
+        "target_stable_before_press": true,
+        "press_motion_measured": true,
+        "collision_probe_press_measured": true,
+        "release_return_measured": true,
+        "no_initial_target_support_penetration": true,
+        "scene_constraints_satisfied": true
+      },
+      "physics_step_index_before_probe_reset": 182,
+      "physics_sim_time_before_probe_reset_s": 0.7583333728834987,
+      "robot_prim_paths_sample": [
+        "/World/Robot",
+        "/World/Robot/Asset",
+        "/World/Robot/Asset/base_link",
+        "/World/Robot/Asset/base_link/visuals",
+        "/World/Robot/Asset/base_link/collisions",
+        "/World/Robot/Asset/link1",
+        "/World/Robot/Asset/link1/visuals",
+        "/World/Robot/Asset/link1/collisions",
+        "/World/Robot/Asset/joints",
+        "/World/Robot/Asset/joints/A",
+        "/World/Robot/Asset/joints/B",
+        "/World/Robot/Asset/joints/C",
+        "/World/Robot/Asset/joints/D",
+        "/World/Robot/Asset/joints/E",
+        "/World/Robot/Asset/joints/F",
+        "/World/Robot/Asset/joints/gripper1_joint",
+        "/World/Robot/Asset/joints/gripper2_joint",
+        "/World/Robot/Asset/joints/motor1_joint",
+        "/World/Robot/Asset/joints/motor2_joint",
+        "/World/Robot/Asset/joints/motor3_joint"
+      ],
+      "robot_source_debug": {
+        "default_prim": "/aerial_manipulator_cs11_measured_v2",
+        "root_children": [
+          "/aerial_manipulator_cs11_measured_v2"
+        ],
+        "composed_children": [
+          "/aerial_manipulator_cs11_measured_v2",
+          "/aerial_manipulator_cs11_measured_v2/base_link",
+          "/aerial_manipulator_cs11_measured_v2/base_link/visuals",
+          "/aerial_manipulator_cs11_measured_v2/base_link/collisions",
+          "/aerial_manipulator_cs11_measured_v2/link1",
+          "/aerial_manipulator_cs11_measured_v2/link1/visuals",
+          "/aerial_manipulator_cs11_measured_v2/link1/collisions",
+          "/aerial_manipulator_cs11_measured_v2/joints",
+          "/aerial_manipulator_cs11_measured_v2/joints/A",
+          "/aerial_manipulator_cs11_measured_v2/joints/B"
+        ]
+      },
+      "press": {
+        "method": "Isaac Lab joint-drive excitation; no robot contact applied",
+        "released_cap_world_z_m": 0.6652947664260864,
+        "quiet_cap_world_z_m": 0.6650859713554382,
+        "pressed_cap_world_z_m": 0.6530628800392151,
+        "pressed_cap_physx_world_xyz_m": [
+          1.5,
+          0.0,
+          0.6530628800392151
+        ],
+        "displacement_m": 0.012231886386871338,
+        "returned_cap_world_z_m": 0.6650596261024475,
+        "returned_cap_physx_world_xyz_m": [
+          1.5,
+          0.0,
+          0.6650596261024475
+        ],
+        "return_error_m": 0.00023514032363891602,
+        "task_success_threshold_m": 0.005,
+        "state_source": "Isaac Lab RigidObject PhysX view; USD stage transform is not used for live state",
+        "probe_start_world_z_m": 0.75,
+        "collision_probe_mass_kg": 0.4,
+        "collision_probe_displacement_m": 0.0177004337310791,
+        "collision_probe_note": "temporary falling sphere, removed from delivered scene; not robot contact",
+        "authored_joint_limit_m": 0.02,
+        "joint_limit_basis": "engineering assumption; not measured asset travel"
+      },
+      "unverified": [
+        "robot contact press",
+        "robot hover/thrust",
+        "robot payload",
+        "robot reachability",
+        "contact force",
+        "full scene penetration scan"
+      ]
+    },
+    "failure": null,
+    "gate_a": "NOT_EVALUATED",
+    "robot_flight_reachability": "UNKNOWN"
+  },
+  "interpretation": [
+    "Uses the existing press-button candidate and the P5 M500 USD solely to test scene-runner integration.",
+    "The fixture profile is not a validated P5 RobotProfile.",
+    "A PASSED scene check is not Gate A, HQP execution, robot contact, or task success."
+  ]
+}

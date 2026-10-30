@@ -1,0 +1,115 @@
+{
+  "kind": "aerofoundry_asset_scene_isaaclab_backend_smoke",
+  "status": "FAILED",
+  "task_id": "task-9efcb66ea4d29bc5",
+  "robot_asset": "/home/windshape/Documents/ChatGPT/AeroFoundry-linux/runs/isaaclab-p5-smoke-2026-10-31-instrumented/p5_m500_import_smoke.usd",
+  "result": {
+    "schema_version": "asset-scene-0.1",
+    "task_id": "task-9efcb66ea4d29bc5",
+    "status": "FAILED",
+    "agent_version": "0.1.0",
+    "template_id": "press",
+    "inputs": {
+      "task_result": {
+        "path": "/home/windshape/Documents/ChatGPT/AeroFoundry-linux/example_run/task_generation/GenerationResult.json",
+        "sha256": "7a9d330903db42abebb2dfe1ec1201408a54a7a61b2e5428134c13491817a311"
+      },
+      "robot_profile": {
+        "path": "/home/windshape/Documents/ChatGPT/AeroFoundry-linux/runs/aerofoundry-scene-smoke-2026-10-31-trace/smoke_inputs/RobotProfile.json",
+        "sha256": "eca48e236cecefc5a8b0aa557103f4c40f04eeca8fdeb76646892e96f4bea9f0"
+      }
+    },
+    "object_spec": {
+      "task_id": "task-9efcb66ea4d29bc5",
+      "asset_class": "button",
+      "semantic_attributes": {},
+      "hard_attributes": {}
+    },
+    "asset_match_report": {
+      "task_id": "task-9efcb66ea4d29bc5",
+      "candidates": [
+        {
+          "page": "https://kenney.nl/assets/factory-kit",
+          "download_url": "https://kenney.nl/media/pages/assets/factory-kit/edaac9d4f6-1777639602/kenney_factory-kit_3.0.zip",
+          "provider": "Kenney",
+          "license": "CC0-1.0",
+          "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "version": "3.0",
+          "retrieved_at": "2026-10-02T18:48:54.290031+00:00",
+          "sha256": "7e31fb2308e90304672bd15cd18fa9d9f02c03731a8cbc57a8e3e1c181dfb0a7",
+          "bytes": 4511890,
+          "download_method": "verified_cached_archive",
+          "id": "kenney-factory-kit-3.0-button-floor-round",
+          "asset_url": "https://kenney.nl/media/pages/assets/factory-kit/edaac9d4f6-1777639602/kenney_factory-kit_3.0.zip",
+          "format": "OBJ/GLB",
+          "original_file": "/home/windshape/Documents/ChatGPT/AeroFoundry-linux/runs/aerofoundry-scene-smoke-2026-10-31-trace/asset_scene/scenes/task-9efcb66ea4d29bc5/assets/button-floor-round.obj",
+          "original_sha256": "cd23c57b84b8d45da4df458a2b8e391f64ec1022f3fe51b02dbd3a1328a360b3",
+          "matched_attributes": [
+            "button",
+            "round",
+            "floor mounted",
+            "press surface appearance"
+          ],
+          "unmatched_attributes": [
+            "authored prismatic travel",
+            "spring return",
+            "measured force"
+          ],
+          "selection_reason": "CC0 source, geometric button and explicit free download; mechanism can be built separately"
+        },
+        {
+          "id": "kenney-factory-kit-3.0-button-floor-square",
+          "page": "https://kenney.nl/assets/factory-kit",
+          "download_url": "https://kenney.nl/media/pages/assets/factory-kit/edaac9d4f6-1777639602/kenney_factory-kit_3.0.zip",
+          "provider": "Kenney",
+          "license": "CC0-1.0",
+          "format": "OBJ/GLB",
+          "version": "3.0",
+          "matched_attributes": [
+            "button",
+            "floor mounted"
+          ],
+          "unmatched_attributes": [
+            "authored prismatic travel",
+            "spring return",
+            "measured force"
+          ],
+          "selection_reason": "Valid candidate; round button chosen for symmetric contact surface"
+        }
+      ],
+      "selected": "kenney-factory-kit-3.0-button-floor-round"
+    },
+    "target_object_instance": null,
+    "scene_spec": null,
+    "realized_scene": null,
+    "initialization_log": [
+      {
+        "step": "cached_catalog",
+        "url": "https://kenney.nl/assets/factory-kit",
+        "time": "2026-10-02T18:48:54.290031+00:00"
+      }
+    ],
+    "asset_versions": [
+      {
+        "id": "kenney-factory-kit-3.0-button-floor-round",
+        "source_version": "3.0",
+        "sha256": "cd23c57b84b8d45da4df458a2b8e391f64ec1022f3fe51b02dbd3a1328a360b3"
+      }
+    ],
+    "scene_version": null,
+    "dependencies": [],
+    "verification": {},
+    "failure": {
+      "type": "RuntimeError",
+      "message": "Isaac Sim exited 0; see isaac_stdout.log and isaac_stderr.log",
+      "stage": "isaac_sim_build_and_reopen"
+    },
+    "gate_a": "NOT_EVALUATED",
+    "robot_flight_reachability": "UNKNOWN"
+  },
+  "interpretation": [
+    "Uses the existing press-button candidate and the P5 M500 USD solely to test scene-runner integration.",
+    "The fixture profile is not a validated P5 RobotProfile.",
+    "A PASSED scene check is not Gate A, HQP execution, robot contact, or task success."
+  ]
+}

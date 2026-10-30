@@ -8,13 +8,13 @@
       "artifact_type": "RobotProfile",
       "schema_version": "1.0",
       "path": "C:\\Users\\Dongy\\Documents\\Codex\\2026-09-29\\aerial-manipulation-vla-embodiment-understanding-agent-2\\outputs\\RobotProfile.json",
-      "sha256": "5b4fe1eb056dde4c21dc1e91b1b4dae32177e26c971c7988c9e880668e6e6585"
+      "sha256": "82a945714eb2ad197c2345f5ed98b9fd0d25811350e905ed303c77bea5778c2c"
     },
     {
       "artifact_type": "ModelValidationReport",
       "schema_version": "1.0",
       "path": "C:\\Users\\Dongy\\Documents\\Codex\\2026-09-29\\aerial-manipulation-vla-embodiment-understanding-agent-2\\outputs\\ModelValidationReport.json",
-      "sha256": "4d54605eaff05adf84c1edf7a7246c70d4c93d2d5a2aaa3a604695ffbd927518"
+      "sha256": "318cb0afb6e987524c78175faf498bf01042c681733ce27399ebd26c89bb0b2d"
     }
   ],
   "evidence_refs": [

@@ -1,10 +1,18 @@
 import json
+import os
+import sys
 import tempfile
 import unittest
 import zipfile
 from pathlib import Path
 
-from asset_scene.pipeline import AssetSceneAgent, TEMPLATES, validate
+from asset_scene.pipeline import (
+    AssetSceneAgent,
+    TEMPLATES,
+    isaac_subprocess_environment,
+    resolve_isaac_python,
+    validate,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -46,6 +54,26 @@ class InterfaceTests(unittest.TestCase):
             self.assertEqual(result["status"], "FAILED")
             self.assertEqual(result["failure"]["type"], "NotImplementedError")
             self.assertEqual(json.loads(task_path.read_text())["scene_constraint_spec"]["target_side"], "left")
+
+    def test_explicit_isaac_python_is_accepted(self):
+        self.assertEqual(resolve_isaac_python(isaac_python=sys.executable), Path(sys.executable).resolve())
+
+    @unittest.skipIf(os.name == "nt", "Linux Isaac runtime path layout")
+    def test_linux_isaac_root_resolves_conda_python(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / "bin").mkdir()
+            (root / "bin" / "python").symlink_to(sys.executable)
+            self.assertEqual(resolve_isaac_python(root), Path(sys.executable).resolve())
+
+    @unittest.skipIf(os.name == "nt", "Linux dynamic-library search path")
+    def test_isaac_runtime_library_path_is_preferred(self):
+        with tempfile.TemporaryDirectory() as temp:
+            prefix = Path(temp)
+            (prefix / "bin").mkdir()
+            (prefix / "lib").mkdir()
+            env = isaac_subprocess_environment(prefix / "bin" / "python", {"LD_LIBRARY_PATH": "/usr/lib"})
+            self.assertEqual(env["LD_LIBRARY_PATH"].split(os.pathsep), [str(prefix / "lib"), "/usr/lib"])
 
 
 class FixedAssetTests(unittest.TestCase):

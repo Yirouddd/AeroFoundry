@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/home/windshape/Documents/ChatGPT/AeroFoundry-linux/scripts/isaaclab_asset_scene_smoke.py", line 9, in <module>
+    from asset_scene.pipeline import AssetSceneAgent, write_json
+ModuleNotFoundError: No module named 'asset_scene'

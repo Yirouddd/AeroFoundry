@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import importlib.util
 import json
 import os
 import re
@@ -18,6 +19,7 @@ TEMPLATES = ("pick_place", "press", "push", "pull", "rotate", "insert", "wipe")
 KENNEY_PAGE = "https://kenney.nl/assets/factory-kit"
 CC0_URL = "https://creativecommons.org/publicdomain/zero/1.0/"
 AGENT_VERSION = "0.1.0"
+ISAAC_PYTHON_ENV = "AERIAL_VLA_ISAAC_PYTHON"
 
 
 def sha256(path: Path) -> str:
@@ -81,9 +83,63 @@ def load_cached_catalog(archive: Path) -> dict:
     return metadata
 
 
+def _expanded_path(value: str | Path) -> Path:
+    return Path(os.path.expandvars(os.path.expanduser(str(value)))).resolve()
+
+
+def resolve_isaac_python(isaac_root: Path | None = None,
+                         isaac_python: Path | str | None = None) -> Path:
+    """Resolve the Python interpreter that owns Isaac Sim and Isaac Lab."""
+    explicit = isaac_python or os.environ.get(ISAAC_PYTHON_ENV)
+    if explicit:
+        path = _expanded_path(explicit)
+        if not path.is_file():
+            raise FileNotFoundError(f"Isaac Lab Python interpreter does not exist: {path}")
+        if os.name != "nt" and not os.access(path, os.X_OK):
+            raise PermissionError(f"Isaac Lab Python interpreter is not executable: {path}")
+        return path
+
+    if isaac_root:
+        root = _expanded_path(isaac_root)
+        if root.is_file():
+            candidates = [root]
+        elif os.name == "nt":
+            candidates = [root / "python.bat", root / "python.exe", root / "bin" / "python.exe"]
+        else:
+            candidates = [root / "python.sh", root / "bin" / "python", root / "python"]
+        for path in candidates:
+            if path.is_file() and (os.name == "nt" or os.access(path, os.X_OK)):
+                return path.resolve()
+
+    if importlib.util.find_spec("isaaclab") and importlib.util.find_spec("isaacsim"):
+        return Path(sys.executable).resolve()
+
+    raise FileNotFoundError(
+        f"Isaac Lab runtime not found. Set {ISAAC_PYTHON_ENV} to the executable from "
+        "the Isaac Lab environment, or pass isaac_python in the request."
+    )
+
+
+def isaac_subprocess_environment(isaac_python: Path, base: dict[str, str] | None = None) -> dict[str, str]:
+    """Set Linux runtime libraries from the selected Isaac conda environment first."""
+    environment = dict(os.environ if base is None else base)
+    if os.name != "nt":
+        prefix = isaac_python.resolve().parent.parent
+        library_dir = prefix / "lib"
+        if library_dir.is_dir():
+            existing = [item for item in environment.get("LD_LIBRARY_PATH", "").split(os.pathsep) if item]
+            library = str(library_dir)
+            if library in existing:
+                existing.remove(library)
+            environment["LD_LIBRARY_PATH"] = os.pathsep.join([library, *existing])
+    return environment
+
+
 class AssetSceneAgent:
-    def __init__(self, isaac_root: Path, output_root: Path):
-        self.isaac_root = Path(isaac_root)
+    def __init__(self, isaac_root: Path | None, output_root: Path,
+                 isaac_python: Path | str | None = None):
+        self.isaac_root = Path(isaac_root) if isaac_root else None
+        self.isaac_python = isaac_python
         self.output_root = Path(output_root)
 
     def run(self, task_result: Path, robot_profile: Path, embodiment_result: Path | None = None,
@@ -161,38 +217,44 @@ class AssetSceneAgent:
                 "selection_reason": "Valid candidate; round button chosen for symmetric contact surface"})
             result["asset_match_report"]["selected"] = candidate["id"]
             result["asset_versions"].append({"id": candidate["id"], "source_version": "3.0", "sha256": candidate["original_sha256"]})
-            robot_src = Path(profile["model_entry"]).parent
+            model_entry = _expanded_path(profile["model_entry"])
+            if not model_entry.is_file():
+                raise FileNotFoundError(f"RobotProfile model_entry is unavailable on this host: {model_entry}")
+            robot_src = model_entry.parent
             stage_name = "robot_dependency_copy"
-            robot_dst = scene_dir / "dependencies" / "swan_gamma_v2"
+            robot_dst = scene_dir / "dependencies" / "robot_asset"
             shutil.copytree(robot_src, robot_dst, dirs_exist_ok=True)
+            robot_asset = robot_dst / model_entry.name
             scene_path = scene_dir / "scene.usd"
             payload = {"task_id": tid, "task": task, "profile": profile,
                        "scene_dir": str(scene_dir), "scene_path": str(scene_path),
-                       "robot_asset": str(robot_dst / "usd" / "company_swan_gamma_v2" / "company_swan_gamma_v2.usda"),
+                       "robot_asset": str(robot_asset),
                        "source_obj": str(archive.parent / "button-floor-round.obj")}
             job = scene_dir / "isaac_job.json"
             write_json(job, payload)
             runner = Path(__file__).resolve().parent / "isaac_runner.py"
+            isaac_python = resolve_isaac_python(self.isaac_root, self.isaac_python)
             stage_name = "isaac_sim_build_and_reopen"
-            command = [str(self.isaac_root / "python.bat"), str(runner), str(job)]
+            command = [str(isaac_python), str(runner), str(job), "--headless", "--device", "cuda:0"]
             with (scene_dir / "isaac_stdout.log").open("w", encoding="utf-8") as stdout, (scene_dir / "isaac_stderr.log").open("w", encoding="utf-8") as stderr:
-                environment = os.environ.copy()
+                environment = isaac_subprocess_environment(isaac_python)
                 environment["WARP_CACHE_PATH"] = str(scene_dir / "cache" / "warp")
                 completed = subprocess.run(command, stdout=stdout, stderr=stderr,
                                            env=environment, timeout=900)
             evidence_file = scene_dir / "isaac_evidence.json"
             if completed.returncode or not evidence_file.exists():
-                raise RuntimeError(f"Isaac Sim exited {completed.returncode}; see isaac_stdout.log and isaac_stderr.log")
+                raise RuntimeError(f"Isaac Lab runner exited {completed.returncode}; see isaac_stdout.log and isaac_stderr.log")
             evidence = json.loads(evidence_file.read_text(encoding="utf-8"))
             result["initialization_log"].append({"step": "isaac_sim_build_and_reopen", "evidence": str(evidence_file),
                                                   "required_checks_passed": evidence.get("verification", {}).get("required_checks_passed")})
             result.update({k: evidence.get(k) for k in ("target_object_instance", "scene_spec", "realized_scene", "verification")})
             result["scene_version"] = {"agent": AGENT_VERSION, "isaac_sim": evidence.get("isaac_version"),
+                                       "isaac_lab": evidence.get("isaac_lab_version"),
                                        "scene_sha256": sha256(scene_path) if scene_path.exists() else None}
             result["dependencies"] = [{"path": str(p.relative_to(scene_dir)), "sha256": sha256(p)}
                                       for p in scene_dir.rglob("*") if p.is_file() and p not in (result_path, job)]
             if not evidence.get("verification", {}).get("required_checks_passed"):
-                raise RuntimeError("Isaac Sim validation did not pass required checks")
+                raise RuntimeError("Isaac Lab structural validation did not pass required checks")
             result["status"] = "PASSED"
         except Exception as exc:
             result["failure"] = {"type": type(exc).__name__, "message": str(exc),
@@ -201,5 +263,6 @@ class AssetSceneAgent:
         return result
 
 
-def run(task_result: Path, robot_profile: Path, isaac_root: Path, output_root: Path, **kwargs) -> dict:
-    return AssetSceneAgent(isaac_root, output_root).run(task_result, robot_profile, **kwargs)
+def run(task_result: Path, robot_profile: Path, isaac_root: Path | None, output_root: Path,
+        isaac_python: Path | str | None = None, **kwargs) -> dict:
+    return AssetSceneAgent(isaac_root, output_root, isaac_python).run(task_result, robot_profile, **kwargs)

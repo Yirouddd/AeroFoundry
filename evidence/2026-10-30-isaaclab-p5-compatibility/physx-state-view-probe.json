@@ -1,0 +1,27 @@
+{
+  "status": "PASSED",
+  "scene": "/home/windshape/Documents/ChatGPT/AeroFoundry-linux/runs/aerofoundry-scene-smoke-2026-10-31-final/asset_scene/scenes/task-9efcb66ea4d29bc5/scene.usd",
+  "steps": 120,
+  "sim_time_s": 0.5083333598449826,
+  "physx_start_pos_w_m": [
+    3.0,
+    0.0,
+    1.4994890689849854
+  ],
+  "physx_end_pos_w_m": [
+    3.0,
+    0.0,
+    0.22214600443840027
+  ],
+  "usd_start_pos_w_m": [
+    3.0,
+    0.0,
+    1.5
+  ],
+  "usd_end_pos_w_m": [
+    3.0,
+    0.0,
+    1.5
+  ],
+  "scope": "free-fall rigid-body state-view probe only; not press mechanism or robot contact"
+}

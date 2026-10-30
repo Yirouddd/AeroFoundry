@@ -1,0 +1,1 @@
+{"status": "FAILED", "evidence": "/home/windshape/Documents/ChatGPT/AeroFoundry-linux/evidence/2026-10-30-isaaclab-p5-compatibility/asset-scene-report.json", "failure": {"type": "RuntimeError", "message": "Isaac Sim exited 0; see isaac_stdout.log and isaac_stderr.log", "stage": "isaac_sim_build_and_reopen"}}

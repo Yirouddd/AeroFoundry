@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any, Callable
@@ -21,6 +22,7 @@ class PipelineRequest:
     entry_file: str | None = None
     embodiment_directory: str | None = None
     isaac_root: str | None = None
+    isaac_python: str | None = None
     cached_asset_archive: str | None = None
     language_task: str | None = None
     target_object: str | None = None
@@ -50,6 +52,10 @@ def _save(path: Path, value: dict[str, Any]) -> None:
 
 def _ref(path: Path) -> dict[str, str]:
     return {"path": str(path.resolve()), "sha256": hashlib.sha256(path.read_bytes()).hexdigest()}
+
+
+def _expanded_path(value: str | Path) -> Path:
+    return Path(os.path.expandvars(os.path.expanduser(str(value)))).resolve()
 
 
 def _reuse_embodiment(source: Path, destination: Path, request: PipelineRequest) -> EmbodimentResult:
@@ -89,16 +95,17 @@ def run(request: PipelineRequest, *, model: str | None = None,
     if proposer is None and not model:
         raise ValueError("model is required unless a proposer is supplied")
 
-    root = Path(request.output_directory).resolve()
+    root = _expanded_path(request.output_directory)
     embodiment_dir = root / "embodiment"
     task_dir = root / "task_generation"
     if request.embodiment_directory:
-        embodiment = _reuse_embodiment(Path(request.embodiment_directory), embodiment_dir, request)
+        embodiment = _reuse_embodiment(_expanded_path(request.embodiment_directory), embodiment_dir, request)
     else:
         embodiment = run_embodiment(EmbodimentRequest(
             interface_version="1.0", job_id=request.job_id,
-            request_id=request.request_id, model_directory=request.model_directory,
-            output_directory=str(embodiment_dir), entry_file=request.entry_file,
+            request_id=request.request_id, model_directory=str(_expanded_path(request.model_directory)),
+            output_directory=str(embodiment_dir),
+            entry_file=str(_expanded_path(request.entry_file)) if request.entry_file else None,
         ))
     embodiment_result_path = embodiment_dir / "EmbodimentResult.json"
     _save(embodiment_result_path, embodiment.to_dict())
@@ -112,7 +119,7 @@ def run(request: PipelineRequest, *, model: str | None = None,
     else:
         generation_request = GenerationRequest(
             schema_version="phase1.1", request_id=request.request_id,
-            robot_bundle_ref=str(Path(request.model_directory).resolve()),
+            robot_bundle_ref=str(_expanded_path(request.model_directory)),
             embodiment_refs=EmbodimentRefs(
                 result=str(embodiment_result_path),
                 profile=str(embodiment_dir / "RobotProfile.json"),
@@ -137,12 +144,18 @@ def run(request: PipelineRequest, *, model: str | None = None,
         })
         scene_status = None
         status = "TASK_INTENT_PRODUCED" if task.status == "PRODUCED" else "TASK_GENERATION_FAILED"
-        if task.status == "PRODUCED" and request.isaac_root:
-            scene = AssetSceneAgent(Path(request.isaac_root), root / "asset_scene").run(
+        isaac_requested = bool(request.isaac_root or request.isaac_python
+                               or os.environ.get("AERIAL_VLA_ISAAC_PYTHON"))
+        if task.status == "PRODUCED" and isaac_requested:
+            scene = AssetSceneAgent(
+                _expanded_path(request.isaac_root) if request.isaac_root else None,
+                root / "asset_scene",
+                isaac_python=request.isaac_python,
+            ).run(
                 task_result_path, embodiment_dir / "RobotProfile.json",
                 embodiment_result=embodiment_result_path,
                 validation_report=embodiment_dir / "ModelValidationReport.json",
-                cached_archive=Path(request.cached_asset_archive) if request.cached_asset_archive else None,
+                cached_archive=_expanded_path(request.cached_asset_archive) if request.cached_asset_archive else None,
             )
             scene_status = scene["status"]
             scene_dir = root / "asset_scene" / "scenes" / scene["task_id"]

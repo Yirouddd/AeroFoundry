@@ -1,0 +1,110 @@
+{
+  "status": "PASSED",
+  "backend": "Isaac Lab",
+  "runtime": {
+    "python": "/home/windshape/conda-envs/a3-isaaclab5/bin/python",
+    "isaac_sim": "5.1.0.0",
+    "isaac_lab": "0.48.0",
+    "device": "cuda:0"
+  },
+  "source": {
+    "urdf": "/home/windshape/Documents/ChatGPT/\u7a7a\u4e2d\u64cd\u4f5cVLA\u6570\u636e\u751f\u6210/aerial_manipulator/aerial_manipulator_fixed_rotors.urdf",
+    "sha256": "d0f0ba92085ff2816421432eab6105e9307623b30d43b582088da95b0f7b5b81",
+    "meshes": [
+      {
+        "path": "/home/windshape/Documents/ChatGPT/\u7a7a\u4e2d\u64cd\u4f5cVLA\u6570\u636e\u751f\u6210/aerial_manipulator_urdf_20260914/meshes/base_link.STL",
+        "sha256": "8947eb715d8d79f2d7b544f26b1a429451ca77107780b4412b69c1f1824e5ca9"
+      },
+      {
+        "path": "/home/windshape/Documents/ChatGPT/\u7a7a\u4e2d\u64cd\u4f5cVLA\u6570\u636e\u751f\u6210/aerial_manipulator_urdf_20260914/meshes/motor1.STL",
+        "sha256": "1cbe04b3ef992d04d32c74951eff5320a09062f33c0c3b35b777bb8591483c25"
+      },
+      {
+        "path": "/home/windshape/Documents/ChatGPT/\u7a7a\u4e2d\u64cd\u4f5cVLA\u6570\u636e\u751f\u6210/aerial_manipulator_urdf_20260914/meshes/motor2.STL",
+        "sha256": "1553b412fb3c26d8e354a1689c7dd409ff65f50b92ae46c71a3b8e57c001933d"
+      },
+      {
+        "path": "/home/windshape/Documents/ChatGPT/\u7a7a\u4e2d\u64cd\u4f5cVLA\u6570\u636e\u751f\u6210/aerial_manipulator_urdf_20260914/meshes/motor3.STL",
+        "sha256": "52a4590a0e9b9ef53ff0a700a24c22a2c27175f339573aef9bf465611272f9a5"
+      },
+      {
+        "path": "/home/windshape/Documents/ChatGPT/\u7a7a\u4e2d\u64cd\u4f5cVLA\u6570\u636e\u751f\u6210/aerial_manipulator_urdf_20260914/meshes/motor4.STL",
+        "sha256": "217908f98b2e8f985cb1e9fb01728972fdcf1b5a1e25c63b7685337a572a13be"
+      },
+      {
+        "path": "/home/windshape/Documents/ChatGPT/\u7a7a\u4e2d\u64cd\u4f5cVLA\u6570\u636e\u751f\u6210/aerial_manipulator_urdf_20260914/meshes/link1.STL",
+        "sha256": "f37b0912ee89913845a20b37b97d3176107c2266a81c6f19579011376f613c25"
+      },
+      {
+        "path": "/home/windshape/Documents/ChatGPT/\u7a7a\u4e2d\u64cd\u4f5cVLA\u6570\u636e\u751f\u6210/aerial_manipulator_urdf_20260914/meshes/link2.STL",
+        "sha256": "0077942c5c16aec37c7120a8f749b5649635663e430dd7fd40f424241519b9a8"
+      },
+      {
+        "path": "/home/windshape/Documents/ChatGPT/\u7a7a\u4e2d\u64cd\u4f5cVLA\u6570\u636e\u751f\u6210/aerial_manipulator_urdf_20260914/meshes/link3.STL",
+        "sha256": "1fab8fc286f970a650ba9e57848751a34c26ca6971bb7bab47513155189d92a3"
+      },
+      {
+        "path": "/home/windshape/Documents/ChatGPT/\u7a7a\u4e2d\u64cd\u4f5cVLA\u6570\u636e\u751f\u6210/aerial_manipulator_urdf_20260914/meshes/link4.STL",
+        "sha256": "62bafe9315fbf88f209490339477e1e7283f5e5b6132e3cca4fe674e7210495c"
+      },
+      {
+        "path": "/home/windshape/Documents/ChatGPT/\u7a7a\u4e2d\u64cd\u4f5cVLA\u6570\u636e\u751f\u6210/aerial_manipulator_urdf_20260914/meshes/link5.STL",
+        "sha256": "ef82297833b6a078574fbcb24e3ae41c78a4ea2fbae32ee6eba1d3b62ff113e8"
+      },
+      {
+        "path": "/home/windshape/Documents/ChatGPT/\u7a7a\u4e2d\u64cd\u4f5cVLA\u6570\u636e\u751f\u6210/aerial_manipulator_urdf_20260914/meshes/link6.STL",
+        "sha256": "9458a4aba873195d6daa9d213cafe5346ae4f1a68154e7a2d6bb3496d004476d"
+      },
+      {
+        "path": "/home/windshape/Documents/ChatGPT/\u7a7a\u4e2d\u64cd\u4f5cVLA\u6570\u636e\u751f\u6210/aerial_manipulator_urdf_20260914/meshes/gripper1.STL",
+        "sha256": "6a72b5551beb4385ee52f46bf5b6032debf08ce24d8bb5deba42146e099b89e8"
+      },
+      {
+        "path": "/home/windshape/Documents/ChatGPT/\u7a7a\u4e2d\u64cd\u4f5cVLA\u6570\u636e\u751f\u6210/aerial_manipulator_urdf_20260914/meshes/gripper2.STL",
+        "sha256": "fcbe05088d8b4ce9da21494de8de67e33129beb46b530b08a51f8185d8e881ac"
+      }
+    ]
+  },
+  "conversion": {
+    "fix_base": true,
+    "merge_fixed_joints": false,
+    "joint_drive": null,
+    "note": "Fixed base isolates import/articulation compatibility; it does not model UAV flight.",
+    "converted_usd": "/home/windshape/Documents/ChatGPT/AeroFoundry-linux/runs/isaaclab-p5-smoke-2026-10-31-instrumented/p5_m500_import_smoke.usd",
+    "converted_usd_sha256": "35a9a17806622ba513724b2a2992858ad9a078618609f86f7d88aaef2e2dee8c"
+  },
+  "checks": {
+    "converted_usd_exists": true,
+    "robot_reference_composed": true,
+    "six_arm_joints_preserved": true,
+    "f_link_preserved": true,
+    "simulation_reset": true,
+    "simulation_steps": 120
+  },
+  "limitations": [
+    "HQP controller was not invoked.",
+    "No EE TCP or frame transform was inferred or changed.",
+    "No UAV flight, contact, task tracking, or real-time constraint was tested."
+  ],
+  "phase": "simulation_step_120",
+  "robot": {
+    "composed_prim_count": 58,
+    "revolute_joint_names": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "expected_arm_joint_names": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "end_link_name": "F_Link"
+  }
+}

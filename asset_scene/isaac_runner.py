@@ -1,16 +1,25 @@
-"""Run only with D:/IsaacSim/python.bat; authors and reopens a physical USD."""
+"""Build and validate a scene under the Isaac Lab launcher."""
 
+import argparse
+import importlib.metadata
 import json
-import math
 import sys
 from pathlib import Path
 
-from isaacsim import SimulationApp
+from isaaclab.app import AppLauncher
 
-app = SimulationApp({"headless": True, "renderer": "RaytracedLighting"})
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("job", type=Path)
+AppLauncher.add_app_launcher_args(parser)
+args = parser.parse_args()
+print("[asset-scene] launching Isaac Lab", flush=True)
+app_launcher = AppLauncher(args)
+app = app_launcher.app
+print("[asset-scene] Isaac Lab app ready", flush=True)
 
 import omni.usd
-from isaacsim.core.api import World
+from isaaclab.assets import RigidObject, RigidObjectCfg
+from isaaclab.sim import SimulationCfg, SimulationContext
 from pxr import Gf, Sdf, Usd, UsdGeom, UsdPhysics, UsdShade
 
 
@@ -64,7 +73,9 @@ def make_obj_mesh(stage, path, obj_file):
 
 def build(job):
     scene_path = Path(job["scene_path"])
+    print("[asset-scene] creating scene stage", flush=True)
     stage = Usd.Stage.CreateNew(str(scene_path))
+    print("[asset-scene] scene stage created", flush=True)
     UsdGeom.SetStageMetersPerUnit(stage, 1.0)
     UsdGeom.SetStageUpAxis(stage, UsdGeom.Tokens.z)
     world = UsdGeom.Xform.Define(stage, "/World")
@@ -78,17 +89,23 @@ def build(job):
     physics_material.CreateDynamicFrictionAttr(0.4)
     physics_material.CreateRestitutionAttr(0.0)
 
-    robot = UsdGeom.Xform.Define(stage, "/World/Robot")
-    robot.GetPrim().GetReferences().AddReference("./dependencies/swan_gamma_v2/usd/company_swan_gamma_v2/company_swan_gamma_v2.usda")
-    translate(robot.GetPrim(), (-1.5, 0, 1.0))
+    robot_placement = UsdGeom.Xform.Define(stage, "/World/Robot")
+    translate(robot_placement.GetPrim(), (-1.5, 0, 1.0))
+    robot = UsdGeom.Xform.Define(stage, "/World/Robot/Asset")
+    print("[asset-scene] adding robot reference", flush=True)
+    robot.GetPrim().GetReferences().AddReference(str(Path(job["robot_asset"]).resolve()))
+    print("[asset-scene] robot reference authored", flush=True)
 
+    print("[asset-scene] adding ground and support", flush=True)
     cube(stage, "/World/Ground", (0, 0, -0.05), (8, 8, 0.1), (0.38, 0.38, 0.38))
     support = cube(stage, "/World/FixedSupport", (1.5, 0, 0.25), (0.8, 0.8, 0.5), (0.30, 0.31, 0.33))
     UsdShade.MaterialBindingAPI.Apply(support).Bind(friction_material, materialPurpose="physics")
     base = UsdGeom.Xform.Define(stage, "/World/Target")
     translate(base.GetPrim(), (1.5, 0, 0.5))
     UsdPhysics.RigidBodyAPI.Apply(base.GetPrim()).CreateKinematicEnabledAttr(True)
+    print("[asset-scene] importing source mesh", flush=True)
     visual = make_obj_mesh(stage, "/World/Target/SourceVisual", job["source_obj"])
+    print("[asset-scene] source mesh imported", flush=True)
     base_collider = cube(stage, "/World/Target/BaseCollider", (0, 0, 0.05), (0.5, 0.5, 0.1), (0.31, 0.28, 0.6))
     UsdShade.MaterialBindingAPI.Apply(base_collider).Bind(friction_material, materialPurpose="physics")
 
@@ -96,7 +113,9 @@ def build(job):
     cap.CreateRadiusAttr(0.12)
     cap.CreateHeightAttr(0.035)
     cap.CreateAxisAttr(UsdGeom.Tokens.z)
-    translate(cap.GetPrim(), (0, 0, 0.1675))
+    cap_xform = UsdGeom.Xformable(cap.GetPrim())
+    cap_xform.SetResetXformStack(True)
+    cap_xform.AddTranslateOp().Set(Gf.Vec3d(1.5, 0, 0.6675))
     color(cap, (1.0, 0.75, 0.30))
     UsdPhysics.CollisionAPI.Apply(cap.GetPrim())
     UsdShade.MaterialBindingAPI.Apply(cap.GetPrim()).Bind(friction_material, materialPurpose="physics")
@@ -125,7 +144,9 @@ def build(job):
     drive.CreateMaxForceAttr(30.0)
     joint.GetPrim().CreateAttribute("user:triggerThresholdM", Sdf.ValueTypeNames.Double).Set(0.005)
     joint.GetPrim().CreateAttribute("user:triggerDefinition", Sdf.ValueTypeNames.String).Set("joint displacement from released state >= 0.005 m")
+    print("[asset-scene] saving scene stage", flush=True)
     stage.GetRootLayer().Save()
+    print("[asset-scene] scene stage saved", flush=True)
     return visual
 
 
@@ -148,41 +169,71 @@ def verify(job, visual):
               "joint_exists": stage.GetPrimAtPath("/World/Target/PressJoint").IsValid(),
               "stage_units_m": abs(UsdGeom.GetStageMetersPerUnit(stage) - 1.0) < 1e-9,
               "source_geometry_reasonable": visual["local_bounds_m"][0][1] <= 1.0}
-    world = World(stage_units_in_meters=1.0)
-    world.reset()
-    for _ in range(30):
-        world.step(render=False)
-    cap = stage.GetPrimAtPath("/World/Target/PressCap")
-    joint = stage.GetPrimAtPath("/World/Target/PressJoint")
-    before = omni.usd.get_world_transform_matrix(cap).ExtractTranslation()[2]
-    for _ in range(30):
-        world.step(render=False)
-    quiet_z = omni.usd.get_world_transform_matrix(cap).ExtractTranslation()[2]
-    UsdPhysics.DriveAPI.Get(joint, "linear").GetTargetPositionAttr().Set(-0.012)
-    for _ in range(120):
-        world.step(render=False)
-    pressed_z = omni.usd.get_world_transform_matrix(cap).ExtractTranslation()[2]
-    displacement = before - pressed_z
-    UsdPhysics.DriveAPI.Get(joint, "linear").GetTargetPositionAttr().Set(0.0)
-    for _ in range(120):
-        world.step(render=False)
-    released_z = omni.usd.get_world_transform_matrix(cap).ExtractTranslation()[2]
-    return_distance = abs(released_z - before)
     probe = UsdGeom.Sphere.Define(stage, "/World/TransientPressProbe")
     probe.CreateRadiusAttr(0.035)
-    translate(probe.GetPrim(), (1.5, 0, 0.75))
+    translate(probe.GetPrim(), (3.0, 0, 2.0))
     UsdPhysics.CollisionAPI.Apply(probe.GetPrim())
     UsdPhysics.RigidBodyAPI.Apply(probe.GetPrim())
     UsdPhysics.MassAPI.Apply(probe.GetPrim()).CreateMassAttr(0.4)
-    world.reset()
-    contact_baseline_z = omni.usd.get_world_transform_matrix(cap).ExtractTranslation()[2]
+    sim = SimulationContext(SimulationCfg(
+        physics_prim_path="/World/PhysicsScene",
+        dt=1.0 / 240.0,
+        render_interval=1,
+        device=args.device,
+        gravity=(0.0, 0.0, -9.81),
+    ))
+    cap_state = RigidObject(RigidObjectCfg(prim_path="/World/Target/PressCap", spawn=None))
+    probe_state = RigidObject(RigidObjectCfg(prim_path="/World/TransientPressProbe", spawn=None))
+    sim.reset()
+    dt = sim.get_physics_dt()
+
+    def step_and_update(count):
+        for _ in range(count):
+            sim.step(render=True)
+            cap_state.update(dt)
+            probe_state.update(dt)
+
+    def body_position(body):
+        return body.data.root_pos_w[0].detach().cpu().tolist()
+
+    for _ in range(30):
+        step_and_update(1)
+    cap = stage.GetPrimAtPath("/World/Target/PressCap")
+    joint = stage.GetPrimAtPath("/World/Target/PressJoint")
+    before_pose = body_position(cap_state)
+    before = before_pose[2]
+    step_and_update(30)
+    quiet_pose = body_position(cap_state)
+    quiet_z = quiet_pose[2]
+    UsdPhysics.DriveAPI.Get(joint, "linear").GetTargetPositionAttr().Set(-0.012)
+    step_and_update(120)
+    pressed_pose = body_position(cap_state)
+    pressed_z = pressed_pose[2]
+    displacement = before - pressed_z
+    press_step_index = sim.current_time_step_index
+    press_sim_time = sim.current_time
+    UsdPhysics.DriveAPI.Get(joint, "linear").GetTargetPositionAttr().Set(0.0)
+    step_and_update(120)
+    released_pose = body_position(cap_state)
+    released_z = released_pose[2]
+    return_distance = abs(released_z - before)
+    import torch
+
+    probe_pose = torch.tensor([[1.5, 0.0, 0.75, 1.0, 0.0, 0.0, 0.0]], device=sim.device)
+    probe_velocity = torch.zeros((1, 6), device=sim.device)
+    probe_state.write_root_pose_to_sim(probe_pose)
+    probe_state.write_root_link_velocity_to_sim(probe_velocity)
+    probe_state.update(0.0)
+    probe_start_z = body_position(probe_state)[2]
+    contact_baseline_z = body_position(cap_state)[2]
     minimum_cap_z = contact_baseline_z
     for _ in range(120):
-        world.step(render=False)
-        minimum_cap_z = min(minimum_cap_z, omni.usd.get_world_transform_matrix(cap).ExtractTranslation()[2])
+        step_and_update(1)
+        minimum_cap_z = min(minimum_cap_z, body_position(cap_state)[2])
     contact_displacement = contact_baseline_z - minimum_cap_z
     stage.RemovePrim("/World/TransientPressProbe")
     checks["reset_succeeded"] = True
+    checks["physics_steps_advanced"] = press_step_index >= 180 and press_sim_time > 0.0
     checks["target_stable_before_press"] = abs(quiet_z - before) < 0.001
     checks["press_motion_measured"] = displacement >= 0.005
     checks["collision_probe_press_measured"] = contact_displacement >= 0.005
@@ -192,13 +243,27 @@ def verify(job, visual):
     checks["scene_constraints_satisfied"] = all(constraints.get(key) in (None, [], "") for key in
                                                 ("raw_text", "target_side", "workspace_box_m", "forbidden_regions",
                                                  "support_relation", "asset_ids"))
-    return {"required_checks_passed": all(checks.values()), "checks": checks, "robot_prim_paths_sample": robot_children,
+    structural_checks = {key: value for key, value in checks.items()
+                         if key not in {"physics_steps_advanced", "press_motion_measured",
+                                        "collision_probe_press_measured", "release_return_measured"}}
+    return {"required_checks_passed": all(structural_checks.values()),
+            "structural_checks_passed": all(structural_checks.values()),
+            "physics_mechanics_checks_passed": all(checks[key] for key in
+                                                    ("physics_steps_advanced", "press_motion_measured",
+                                                     "collision_probe_press_measured", "release_return_measured")),
+            "checks": checks, "physics_step_index_before_probe_reset": press_step_index,
+            "physics_sim_time_before_probe_reset_s": press_sim_time,
+            "robot_prim_paths_sample": robot_children,
             "robot_source_debug": robot_source,
-            "press": {"method": "Isaac Sim joint-drive excitation; no robot contact applied",
+            "press": {"method": "Isaac Lab joint-drive excitation; no robot contact applied",
                       "released_cap_world_z_m": before, "quiet_cap_world_z_m": quiet_z,
                       "pressed_cap_world_z_m": pressed_z,
+                      "pressed_cap_physx_world_xyz_m": pressed_pose,
                       "displacement_m": displacement, "returned_cap_world_z_m": released_z,
+                      "returned_cap_physx_world_xyz_m": released_pose,
                       "return_error_m": return_distance, "task_success_threshold_m": 0.005,
+                      "state_source": "Isaac Lab RigidObject PhysX view; USD stage transform is not used for live state",
+                      "probe_start_world_z_m": probe_start_z,
                       "collision_probe_mass_kg": 0.4, "collision_probe_displacement_m": contact_displacement,
                       "collision_probe_note": "temporary falling sphere, removed from delivered scene; not robot contact",
                       "authored_joint_limit_m": 0.02, "joint_limit_basis": "engineering assumption; not measured asset travel"},
@@ -206,12 +271,26 @@ def verify(job, visual):
                            "contact force", "full scene penetration scan"]}
 
 
+def package_version(name):
+    try:
+        return importlib.metadata.version(name)
+    except importlib.metadata.PackageNotFoundError:
+        return None
+
+
 def main():
-    job = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+    print("[asset-scene] reading job", flush=True)
+    job = json.loads(args.job.read_text(encoding="utf-8"))
+    print("[asset-scene] building scene", flush=True)
     visual = build(job)
+    print("[asset-scene] verifying scene", flush=True)
     verification = verify(job, visual)
     tid = job["task_id"]
-    output = {"isaac_version": "6.0.1", "verification": verification,
+    output = {"isaac_version": package_version("isaacsim"),
+              "isaac_lab_version": package_version("isaaclab"),
+              "launch_backend": "isaaclab.AppLauncher",
+              "runtime": {"python": sys.executable, "device": args.device},
+              "verification": verification,
               "target_object_instance": {"task_id": tid, "path": "/World/Target", "role": "target",
                                          "source_visual": "/World/Target/SourceVisual", "pressable_part": "/World/Target/PressCap",
                                          "joint": "/World/Target/PressJoint", "source_mesh": visual},
@@ -235,4 +314,5 @@ def main():
 try:
     main()
 finally:
-    app.close()
+    SimulationContext.clear_instance()
+    app.close(wait_for_replicator=False)

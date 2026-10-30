@@ -1,4 +1,5 @@
 import json
+import os
 import shutil
 import tempfile
 import unittest
@@ -6,6 +7,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from aerial_vla_pipeline import PipelineRequest, run
+from aerial_vla_pipeline.pipeline import _expanded_path
 from embodiment_agent import EmbodimentResult
 
 
@@ -13,6 +15,10 @@ FIXTURE = Path(__file__).resolve().parent / "fixtures" / "embodiment"
 
 
 class PipelineTests(unittest.TestCase):
+    def test_request_paths_expand_linux_environment_variables(self):
+        with tempfile.TemporaryDirectory() as temp, patch.dict(os.environ, {"AEROFOUNDRY_TEST_ROOT": temp}):
+            self.assertEqual(_expanded_path("$AEROFOUNDRY_TEST_ROOT/model").parent, Path(temp))
+
     def test_task_result_is_passed_to_asset_scene(self):
         saved = json.loads((FIXTURE / "EmbodimentResult.json").read_text(encoding="utf-8"))
 
